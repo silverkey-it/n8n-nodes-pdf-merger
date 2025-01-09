@@ -36,6 +36,7 @@
     "dist"
   ],
   "n8n": {
+    "n8nNodesApiVersion": 1,
     "credentials": [
       "dist/credentials/PdfMergerNodeApi.credentials.js"
     ],
