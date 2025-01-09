@@ -19,12 +19,15 @@
 		"declaration": true,
 		"sourceMap": true,
 		"skipLibCheck": true,
-		"outDir": "./dist/",
+		// map alles naar /dist, maar behoud de folderstructuur
+		"outDir": "./dist",
+		"rootDir": "."
 	},
 	"include": [
-		"credentials/**/*",
-		"nodes/**/*",
+		"credentials/**/*.ts",
+		"nodes/**/*.ts",
+		"nodes/**/*.node.ts",
 		"nodes/**/*.json",
-		"package.json",
-	],
+		"package.json"
+	]
 }
