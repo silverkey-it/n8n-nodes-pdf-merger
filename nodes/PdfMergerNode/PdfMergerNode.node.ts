@@ -2,7 +2,7 @@ import {
 	IExecuteFunctions,
 	INodeExecutionData,
 	INodeType,
-	INodeTypeDescription,
+	INodeTypeDescription, NodeConnectionType,
 } from 'n8n-workflow';
 
 import {
@@ -21,8 +21,8 @@ export class PdfMergerNode implements INodeType {
 		defaults: {
 			name: 'PDF Merger',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: ['main'] as NodeConnectionType[],
+		outputs: ['main'] as NodeConnectionType[],
 		properties: [
 			{
 				displayName: 'PDF File with House Style',
