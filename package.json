@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-pdf-merger",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Node for merging PDF files (content & style).",
   "keywords": [
     "n8n-community-node-package"
@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^20.17.12",
     "@typescript-eslint/parser": "^7.15.0",
     "eslint": "^8.56.0",
     "eslint-plugin-n8n-nodes-base": "^1.16.1",
@@ -50,8 +51,7 @@
     "n8n-workflow": "*",
     "node": "^22.13.0",
     "prettier": "^3.3.2",
-    "typescript": "^5.5.3",
-    "@types/node": "^20.17.12"
+    "typescript": "^5.5.3"
   },
   "peerDependencies": {
     "n8n-workflow": "*"

@@ -26,14 +26,14 @@ export class PdfMergerNode implements INodeType {
 		properties: [
 			{
 				displayName: 'PDF File with House Style',
-				name: 'pdfFileStyling',
+				name: 'binaryData1',
 				type: 'string',
 				default: 'binaryData1',
 				description: 'Name of the binary property that contains the PDF with the house style',
 			},
 			{
 				displayName: 'PDF File with Content',
-				name: 'pdfFileContent',
+				name: 'binaryData2',
 				type: 'string',
 				default: 'binaryData2',
 				description: 'Name of the binary property that contains the PDF with the content',
@@ -46,8 +46,8 @@ export class PdfMergerNode implements INodeType {
 		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
-			const pdfFileProp1 = this.getNodeParameter('pdfFileStyling', i) as string;
-			const pdfFileProp2 = this.getNodeParameter('pdfFileContent', i) as string;
+			const pdfFileProp1 = this.getNodeParameter('binaryData1', i) as string;
+			const pdfFileProp2 = this.getNodeParameter('binaryData2', i) as string;
 			const item = items[i];
 
 			if (!item.binary) {

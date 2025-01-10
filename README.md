@@ -1,46 +1,72 @@
 ![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
 
-# n8n-nodes-starter
+Hier is de volledige README in markdown-formaat:
 
-This repo contains example nodes to help you get started building your own custom integrations for [n8n](n8n.io). It includes the node linter and other dependencies.
+# PDF Merger Node for n8n
 
-To make your custom node available to the community, you must create it as an npm package, and [submit it to the npm registry](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry).
+A custom node to merge two PDF files in your n8n workflows. Overlay a house style PDF onto a content PDF, with fallback handling for differing page counts.
 
-## Prerequisites
+---
 
-You need the following installed on your development machine:
+## 📖 Overview
 
-* [git](https://git-scm.com/downloads)
-* Node.js and pnpm. Minimum version Node 18. You can find instructions on how to install both using nvm (Node Version Manager) for Linux, Mac, and WSL [here](https://github.com/nvm-sh/nvm). For Windows users, refer to Microsoft's guide to [Install NodeJS on Windows](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows).
-* Install n8n with:
-  ```
-  pnpm install n8n -g
-  ```
-* Recommended: follow n8n's guide to [set up your development environment](https://docs.n8n.io/integrations/creating-nodes/build/node-development-environment/).
+The **PDF Merger Node** allows you to:
+- Overlay a "house style" PDF onto a "content" PDF.
+- Handle differences in page counts gracefully.
+- Output a merged PDF file.
 
-## Using this starter
+---
 
-These are the basic steps for working with the starter. For detailed guidance on creating and publishing nodes, refer to the [documentation](https://docs.n8n.io/integrations/creating-nodes/).
+## 🛠️ Node Configuration
 
-1. [Generate a new repository](https://github.com/n8n-io/n8n-nodes-starter/generate) from this template repository.
-2. Clone your new repo:
-   ```
-   git clone https://github.com/<your organization>/<your-repo-name>.git
-   ```
-3. Run `pnpm i` to install dependencies.
-4. Open the project in your editor.
-5. Browse the examples in `/nodes` and `/credentials`. Modify the examples, or replace them with your own nodes.
-6. Update the `package.json` to match your details.
-7. Run `pnpm lint` to check for errors or `pnpm lintfix` to automatically fix errors when possible.
-8. Test your node locally. Refer to [Run your node locally](https://docs.n8n.io/integrations/creating-nodes/test/run-node-locally/) for guidance.
-9. Replace this README with documentation for your node. Use the [README_TEMPLATE](README_TEMPLATE.md) to get started.
-10. Update the LICENSE file to use your details.
-11. [Publish](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry) your package to npm.
+### Inputs
+- **House Style PDF**: Binary property for the house style file (default: `binaryData1`).
+- **Content PDF**: Binary property for the content file (default: `binaryData2`).
 
-## More information
+### Output
+- **Merged PDF**: The combined PDF file as a binary property (`merged.pdf`).
 
-Refer to our [documentation on creating nodes](https://docs.n8n.io/integrations/creating-nodes/) for detailed information on building your own nodes.
+---
+
+## 🚀 Installation
+
+### Step-by-Step Guide
+
+1. Clone the repository:
+	```bash
+		 git clone https://github.com/silverkey-it/n8n-nodes-pdf-merger.git
+	```
+
+2.	Navigate to the directory:
+		```bash 
+		cd n8n-nodes-pdf-merger
+		```
+3.	Install dependencies and build the node:
+		```bash 
+		pnpm install && pnpm run build
+		```
+4.	Copy the build to your n8n custom nodes folder:
+		```bash 
+		cp -r dist/ ~/.n8n/custom/
+		```
+5.	Restart your n8n instance to load the new node:
+		```bash 
+		n8n stop && n8n start
+		```
+
+## Example Workflow
+1.	Add two PDFs to your workflow:
+•	One as content.
+•	One as house style.
+2.	Use the PDF Merger Node to merge them.
+3.	Output the result as a new merged PDF.
 
 ## License
 
-[MIT](https://github.com/n8n-io/n8n-nodes-starter/blob/master/LICENSE.md)
+This project is licensed under the MIT License. Feel free to use, modify, and distribute as needed.
+
+## Contributing
+
+Contributions are welcome! Feel free to open an issue or submit a pull request.
+
+Happy merging! 🎉
