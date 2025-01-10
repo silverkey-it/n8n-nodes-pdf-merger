@@ -33,10 +33,9 @@ The **PDF Merger Node** allows you to:
 ### Step-by-Step Guide
 
 1. Clone the repository:
-	```bash
-		 git clone https://github.com/silverkey-it/n8n-nodes-pdf-merger.git
-	```
-
+	 ```bash 
+	git clone https://github.com/silverkey-it/n8n-nodes-pdf-merger.git
+	 ```
 2.	Navigate to the directory:
 		```bash 
 		cd n8n-nodes-pdf-merger
