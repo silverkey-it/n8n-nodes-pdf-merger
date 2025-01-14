@@ -2,7 +2,8 @@ import {
 	IExecuteFunctions,
 	INodeExecutionData,
 	INodeType,
-	INodeTypeDescription, NodeConnectionType,
+	INodeTypeDescription,
+	NodeConnectionType,
 } from 'n8n-workflow';
 
 import {
@@ -11,10 +12,13 @@ import {
 	PDFEmbeddedPage,
 } from 'pdf-lib';
 
+import filesize from 'filesize';
+
 export class PdfMergerNode implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'PDF Merger',
 		name: 'pdfMergerNode',
+		icon: 'fa:file-pdf',
 		group: ['transform'],
 		version: 1,
 		description: 'Merge two PDF files by overlaying pages (with fallback if one PDF is shorter)',
@@ -38,6 +42,20 @@ export class PdfMergerNode implements INodeType {
 				default: 'binaryData2',
 				description: 'Name of the binary property that contains the PDF with the content',
 			},
+			{
+				displayName: 'Output File Name',
+				name: 'outputFileName',
+				type: 'string',
+				default: 'merged.pdf',
+				description: 'Name of the output file',
+			},
+			{
+				displayName: 'Output Binary Property',
+				name: 'outputBinaryProperty',
+				type: 'string',
+				default: 'mergedPdf',
+				description: 'Name of the binary property in which to store the merged PDF',
+			},
 		],
 	};
 
@@ -48,6 +66,9 @@ export class PdfMergerNode implements INodeType {
 		for (let i = 0; i < items.length; i++) {
 			const pdfFileProp1 = this.getNodeParameter('binaryData1', i) as string;
 			const pdfFileProp2 = this.getNodeParameter('binaryData2', i) as string;
+			const outputFileName = this.getNodeParameter('outputFileName', i) as string;
+			const outputBinaryPropertyName = this.getNodeParameter('outputBinaryProperty', i) as string;
+
 			const item = items[i];
 
 			if (!item.binary) {
@@ -61,10 +82,12 @@ export class PdfMergerNode implements INodeType {
 				json: {},
 				binary: {
 					...item.binary,
-					mergedPdf: {
+					[outputBinaryPropertyName]: {
 						data: Buffer.from(mergedPdfBytes).toString('base64'),
 						mimeType: 'application/pdf',
-						fileName: 'merged.pdf',
+						fileName: outputFileName,
+						fileExtension: 'pdf',
+						fileSize: filesize.filesize(mergedPdfBytes.length),
 					},
 				},
 			});

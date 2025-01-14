@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-pdf-merger",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Node for merging PDF files (content & style).",
   "keywords": [
     "n8n-community-node-package"
@@ -57,6 +57,7 @@
     "n8n-workflow": "*"
   },
   "dependencies": {
+    "filesize": "^10.1.6",
     "pdf-lib": "^1.17.1"
   }
 }

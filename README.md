@@ -52,7 +52,10 @@ The **PDF Merger Node** allows you to:
 		```bash 
 		n8n stop && n8n start
 		```
-
+		or just start it:
+		```bash 
+		n8n start
+		```
 ## Example Workflow
 1.	Add two PDFs to your workflow:
 •	One as content.
