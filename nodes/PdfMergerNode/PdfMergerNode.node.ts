@@ -21,7 +21,7 @@ export class PdfMergerNode implements INodeType {
 		icon: 'fa:file-pdf',
 		group: ['transform'],
 		version: 1,
-		description: 'Merge two PDF files by overlaying pages (with fallback if one PDF is shorter)',
+		description: 'Merge two PDF files by overlaying pages',
 		defaults: {
 			name: 'PDF Merger',
 		},
@@ -121,24 +121,29 @@ export class PdfMergerNode implements INodeType {
 
 		const doc1Pages = pdfDoc1.getPages();
 		const doc2Pages = pdfDoc2.getPages();
-		const maxPageCount = Math.max(doc1Pages.length, doc2Pages.length);
 
-		for (let pageIndex = 0; pageIndex < maxPageCount; pageIndex++) {
-			const houseStyleSource = doc1Pages[pageIndex];
+		const houseStylePage = doc1Pages.length > 0 ? doc1Pages[0] : undefined;
+		const embeddedHouseStylePage = houseStylePage
+			? (await mergedPdf.embedPages([houseStylePage]))[0]
+			: null;
+
+		for (let pageIndex = 0; pageIndex < doc2Pages.length; pageIndex++) {
 			const contentSource = doc2Pages[pageIndex];
-
-			const embeddedHouseStylePage = await PdfMergerNode.embedPageIfExists(mergedPdf, houseStyleSource);
 			const embeddedContentPage = await PdfMergerNode.embedPageIfExists(mergedPdf, contentSource);
 
-			const [width, height] = PdfMergerNode.determinePageSize(embeddedHouseStylePage, embeddedContentPage);
+			const [width, height] = PdfMergerNode.determinePageSize(
+				embeddedHouseStylePage,
+				embeddedContentPage,
+			);
+
 			const mergedPage = mergedPdf.addPage([width, height]);
 
-			// Draw content first, then house style.
-			if (embeddedContentPage) {
-				mergedPage.drawPage(embeddedContentPage, { x: 0, y: 0 });
-			}
 			if (embeddedHouseStylePage) {
 				mergedPage.drawPage(embeddedHouseStylePage, { x: 0, y: 0 });
+			}
+
+			if (embeddedContentPage) {
+				mergedPage.drawPage(embeddedContentPage, { x: 0, y: 0 });
 			}
 		}
 
@@ -158,15 +163,15 @@ export class PdfMergerNode implements INodeType {
 		hStylePage?: PDFEmbeddedPage | null,
 		contentPage?: PDFEmbeddedPage | null,
 	): [number, number] {
-		// Default to ~A4.
+		// Default ~ A4
 		const defaultWidth = 595;
 		const defaultHeight = 842;
 
-		if (contentPage) {
-			return [contentPage.width, contentPage.height];
-		}
 		if (hStylePage) {
 			return [hStylePage.width, hStylePage.height];
+		}
+		if (contentPage) {
+			return [contentPage.width, contentPage.height];
 		}
 		return [defaultWidth, defaultHeight];
 	}
